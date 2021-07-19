@@ -16,7 +16,6 @@ function s_lx = f_Slx(wrk, ed, r_m, r_p, f_b, f_02)
     ];
     if 0 < wrk && wrk <= length(wrk_db)
 
-        
         f_b = [wrk_db(wrk, 1), wrk_db(wrk, 3)];     % get f_b from wrk table
         f_02 = [wrk_db(wrk, 2), wrk_db(wrk, 4)];    % get f_02 from wrk table
         
@@ -28,7 +27,7 @@ function s_lx = f_Slx(wrk, ed, r_m, r_p, f_b, f_02)
         else 
             s_lx = 1.5*s_l2;
         end
-
+        
         if ed >= 2.0
             s_lx = s_lx(2);
         elseif ed >= 1.5
