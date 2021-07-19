@@ -47,8 +47,8 @@ Sy = sum(Ny)/length(Nx);                                    % calculate y center
 
 
 % calculate force from x & y
-Fxn = -Fx*A/sum(A);
-Fyn = -Fy*A/sum(A);
+Fxn = -Fx*A/sum(A);                                         % Fx for each rivet
+Fyn = -Fy*A/sum(A);                                         % Fy for each rivet
 
 
 % calculate force from moment
@@ -58,14 +58,18 @@ Fm = m_0 .* rn .* A / sum(rn.*rn.*A);                       % force acting on ea
 
 
 % converting moment force to X,Y
-Vrx = -(Sy-Ny);
-Vry = Sx-Nx;
-Vx = Vrx./abs(Vrx);
-Vy = Vry./abs(Vry);
+Vrx = -(Sy-Ny);                                             % rotating rivet to center line
+Vry = Sx-Nx;                                                % rotating rivet to center line
+if m_0 < 0
+    Vrx = Vrx.*(-1);
+    Vry = Vry.*(-1);
+end
+Vx = Vrx./abs(Vrx);                                         % x direction
+Vy = Vry./abs(Vry);                                         % y direction
 
-Va = atan(Vry./Vrx);
-Fxm = -abs(cos(Va)).*Fm.*Vx;
-Fym = -abs(sin(Va)).*Fm.*Vy;
+Va = atan(Vry./Vrx);                                        % tan of y/x
+Fxm = -abs(cos(Va)).*Fm.*Vx;                                % x force
+Fym = -abs(sin(Va)).*Fm.*Vy;                                % y force
 
 
 % combining both X Y
@@ -83,11 +87,12 @@ for c = 1:length(Nx)
     line([Nx(c), Nx(c)], [Ny(c), Ny(c) + 0.01*Fyt(c)], "Color", "green");
     line([Nx(c), Nx(c) + 0.01*Fxt(c)], [Ny(c), Ny(c) + 0.01*Fyt(c)], "Color", "#EDB120");
 end
-
+line([Kx, Kx + 0.005*Fx], [Ky, Ky], "Color", "green");
+line([Kx, Kx], [Ky, Ky + 0.005*Fy], "Color", "green");
+line([Kx, Kx + 0.005*Fx], [Ky, Ky + 0.005*Fy], "Color", "#EDB120");
 
 % print results
 disp("Rx        Ry        Fx        Fy        Fres");
 for c = 1:length(Ft)
     disp(Fxn(c) + "     " + Fyn(c) + "   " + Fxt(c) + "   " + Fyt(c) + "   " + Ft(c))
 end
-disp(Ft);
