@@ -1,5 +1,4 @@
 i = 1;
-exit = false;
 Nx = zeros(1);
 Ny = zeros(1);
 A = ones(1);
@@ -9,7 +8,7 @@ u_a = input("Ja = 1, Nein = 0: ");
 disp("Koordinaten der Nieten: ");
 disp("Leere Koordinate um Eingabe zu beenden");
 
-while ~exit
+while true
     in = input("Niete " + i + " X: ");
     if isempty(in)
         break
@@ -22,6 +21,7 @@ while ~exit
         break
     end
     Ny(i) = in;
+    
     if u_a == 1
         in = input("Niete " + i + " A: ");
         if isempty(in)
@@ -53,4 +53,6 @@ Ry = -Fy*A/sum(A);
 m_0 = Fx *(Sx-Kx) + Fy * (Sy-Ky);                           % moment around center
 rn = sqrt((Sx-Nx).*(Sx-Nx) + (Sy-Ny).*(Sy-Ny));             % distance from center for each rivet
 Fm = m_0 .* rn .* A / sum(rn.*rn.*A);                       % force acting on each rivet
+
+% print results
 
