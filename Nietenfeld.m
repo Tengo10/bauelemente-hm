@@ -13,10 +13,9 @@ end
 
 Dn = zeros(1);
 An = zeros(1);
+
 i = 1;
-
 F = input("Kraft in N: ");
-
 if a_0
     disp("Durchmesser Nieten: ")
     while true
@@ -28,11 +27,12 @@ if a_0
         An(i) = in*in*pi/4;
         i = i + 1;
     end
-    Qn = An/sum(An) * F;                        % calculating force on rivets
+               
+    disp(Qn);
 else
    n = input("Anzahl Nieten: ");
    Dn =  input("Durchmesser in mm: ");
-   An = Dn*Dn*pi/4;
-   
-   Qn = F/n; 
+   An = ones(n);
 end
+
+Qn = An/sum(An) * F;             % calculating force on rivets
